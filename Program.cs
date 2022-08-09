@@ -33,6 +33,8 @@ builder.Services.AddHealthChecks();
 builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
 {
     config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+    config.AddJsonFile("/config/appsettings.json", optional: true, reloadOnChange: true);
+
 });
 
 // Add services to the container.
