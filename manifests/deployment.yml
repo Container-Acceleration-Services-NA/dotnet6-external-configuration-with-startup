@@ -27,7 +27,13 @@ spec:
             name: app-config
             defaultMode: 420
       containers:
-        - resources: {}
+        - resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 300m
+              memory: 200Mi
           readinessProbe:
             httpGet:
               path: /healthz
