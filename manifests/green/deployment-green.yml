@@ -1,30 +1,30 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: simple-dotnet6-startup
+  name: simple-dotnet6-startup-green
   labels:
-    app: simple-dotnet6-startup
-    app.kubernetes.io/component: simple-dotnet6-startup
-    app.kubernetes.io/instance: simple-dotnet6-startup
-    app.kubernetes.io/name: simple-dotnet6-startup
-    app.kubernetes.io/part-of: simple-dotnet6-startup
+    app: simple-dotnet6-startup-green
+    app.kubernetes.io/component: simple-dotnet6-startup-green
+    app.kubernetes.io/instance: simple-dotnet6-startup-green
+    app.kubernetes.io/name: simple-dotnet6-startup-green
+    app.kubernetes.io/part-of: simple-dotnet6-startup-green
     app.openshift.io/runtime: dotnet
     app.openshift.io/runtime-namespace: simple-dotnet6-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: simple-dotnet6-startup
+      app: simple-dotnet6-startup-green
   template:
     metadata:
       labels:
-        app: simple-dotnet6-startup
-        deploymentconfig: simple-dotnet6-startup
+        app: simple-dotnet6-startup-green
+        deploymentconfig: simple-dotnet6-startup-green
     spec:
       volumes:
         - name: app-config
           configMap:
-            name: app-config
+            name: app-config-green
             defaultMode: 420
       containers:
         - resources:
@@ -44,7 +44,7 @@ spec:
             successThreshold: 1
             failureThreshold: 3
           terminationMessagePath: /dev/termination-log
-          name: simple-dotnet6-startup
+          name: simple-dotnet6-startup-green
           ports:
             - containerPort: 7111
               protocol: TCP
@@ -54,7 +54,7 @@ spec:
               mountPath: /app/appsettings.json
               subPath: appsettings.json
           terminationMessagePolicy: File
-          image: quay.io/ohthree/dotnet-app:v1
+          image: quay.io/ohthree/dotnet-app:v2
       restartPolicy: Always
   strategy:
     type: RollingUpdate
